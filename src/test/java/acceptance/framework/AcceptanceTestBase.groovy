@@ -19,4 +19,8 @@ class AcceptanceTestBase extends Specification {
     def <T> T get(String uri) {
         client.get(uri)
     }
+
+    def <T> T post(String uri, Object payload) {
+        client.post(uri, payload)
+    }
 }

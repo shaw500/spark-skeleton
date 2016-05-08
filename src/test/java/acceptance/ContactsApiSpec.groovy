@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.*
 
 public class ContactsApiSpec extends AcceptanceTestBase {
 
-    def "GET /contacts"() {
+    def 'GET /api/contacts'() {
         when:
         List<Contact> contacts = get '/api/contacts'
 
@@ -18,7 +18,7 @@ public class ContactsApiSpec extends AcceptanceTestBase {
         assertThat(contacts).extracting({c -> c.username}).contains('mjshaw', 'taffanyl')
     }
 
-    def "GET /contacts/:id"() {
+    def 'GET /api/contacts/:id'() {
         when:
         Contact contact = get '/api/contacts/1234'
 
@@ -28,6 +28,27 @@ public class ContactsApiSpec extends AcceptanceTestBase {
             assertThat(name).isEqualTo('Matthew Shaw')
             assertThat(email).isEqualTo('shaw500@gmail.com')
             assertThat(username).isEqualTo('mjshaw')
+        }
+    }
+
+    def 'POST /api/contacts'() {
+        when:
+        Contact original = new Contact('some-id', 'Some Person', 'some-one@some-where.com', 'some-user')
+        Contact response = post '/api/contacts', original
+        Contact result = get '/api/contacts/some-id'
+
+        then:
+        with(response) {
+            assertThat(id).isEqualTo('some-id')
+            assertThat(name).isEqualTo('Some Person')
+            assertThat(email).isEqualTo('some-one@some-where.com')
+            assertThat(username).isEqualTo('some-user')
+        }
+        with(result) {
+            assertThat(id).isEqualTo('some-id')
+            assertThat(name).isEqualTo('Some Person')
+            assertThat(email).isEqualTo('some-one@some-where.com')
+            assertThat(username).isEqualTo('some-user')
         }
 
     }

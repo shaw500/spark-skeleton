@@ -20,4 +20,9 @@ public class ContactsRepository {
     def Contact getById(String id) {
         contacts.find { contact -> contact.id ==  id }
     }
+
+    def Contact save(Contact contact) {
+        contacts.add(contact)
+        contact
+    }
 }

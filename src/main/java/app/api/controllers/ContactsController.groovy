@@ -33,7 +33,8 @@ class ContactsController implements SparkComponent {
         }, json
 
         post '/api/contacts', { req, res ->
-            throw new UnsupportedOperationException('Cannot create contacts yet...')
+            Contact contact = json.toType(req.body())
+            repository.save(contact)
         }, json
     }
 }
