@@ -1,4 +1,4 @@
-package app.models;
+package app.core.models;
 
 public class User {
     String id

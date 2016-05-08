@@ -1,19 +1,19 @@
-package app.sparks
+package app.api.spark.sparks
 
-import app.actions.CreateUser
-import app.actions.GetUser
-import app.actions.ThrowException
-import app.main.Spark;
+import app.api.actions.CreateUser
+import app.api.actions.GetUser
+import app.api.actions.ThrowException
+import app.api.spark.SparkComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import spark.Route
-import app.transformers.JsonTransformer;
+import app.api.spark.transformers.JsonTransformer;
 
 import static spark.Spark.*
 
 @Component
-class Router implements Spark {
+class Router implements SparkComponent {
 
     @Autowired
     private ApplicationContext applicationContext
@@ -21,7 +21,7 @@ class Router implements Spark {
     private JsonTransformer jsonTransformer
 
     @Override
-    public void register() {
+    public void start() {
         post "/user", getRoute(CreateUser), jsonTransformer
         get "/user/:id", getRoute(GetUser), jsonTransformer
         get '/exception', getRoute(ThrowException)

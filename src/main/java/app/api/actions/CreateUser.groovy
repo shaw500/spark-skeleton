@@ -1,16 +1,18 @@
-package app.actions;
+package app.api.actions;
 
-import app.models.User;
+import com.google.gson.Gson;
+import app.core.models.User;
 import org.springframework.stereotype.Component;
 import spark.Request;
 import spark.Response;
 import spark.Route
 
 @Component
-public class GetUser implements Route {
+public class CreateUser implements Route {
 
     @Override
     public Object handle(Request request, Response response) {
-        return new User(UUID.randomUUID().toString(), 'Matthew Shaw', 'shaw500@gmail.com', 'mjshaw')
+        User user = new Gson().fromJson(request.body(), User)
+        return user
     }
 }

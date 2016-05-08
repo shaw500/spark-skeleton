@@ -1,4 +1,4 @@
-package app.transformers
+package app.api.spark.transformers
 
 import com.google.gson.Gson
 import org.springframework.context.annotation.Scope

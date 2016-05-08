@@ -1,26 +1,31 @@
-package app.main
+package app.api.spark
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
-class App {
+class Server {
 
-    Logger logger = LoggerFactory.getLogger(App)
+    Logger logger = LoggerFactory.getLogger(Server)
 
-    def run(){
+    def Server start(){
         ApplicationContext ctx = new AnnotationConfigApplicationContext()
         ctx.scan('app')
         ctx.refresh()
 
-        def sparkConfig = ctx.getBean(SparkConfiguration)
-        sparkConfig.sparkRunner()
+        def sparkRunner = ctx.getBean(SparkRunner)
+        sparkRunner.run()
 
         logger.info("Server started")
+        this
+    }
+
+    def stop() {
+        spark.Spark.stop()
     }
 
     public static void main(String[] args) {
-        new App().run()
+        new Server().start()
     }
 }

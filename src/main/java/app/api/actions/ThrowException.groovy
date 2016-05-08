@@ -1,4 +1,4 @@
-package app.actions
+package app.api.actions
 
 import org.springframework.stereotype.Component
 import spark.Request
